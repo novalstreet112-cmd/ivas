@@ -2,7 +2,7 @@ FROM python:3.11-slim@latest
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y wget gnupg unzip curl && echo "clear cache 1" && wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt-get install -y /tmp/chrome.deb && rm /tmp/chrome.deb
+RUN apt-get update && apt-get install -y wget gnupg unzip curl && wget -q -O - https://dl.google.com/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && apt-get update && apt-get install -y google-chrome-stable && rm -rf /var/lib/apt/lists/* && echo "clear cache 1"
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -10,4 +10,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY .
 
 CMD ["python", "index.py"]
-# rebuild 1
