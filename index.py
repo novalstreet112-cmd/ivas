@@ -138,9 +138,8 @@ options.add_argument("--disable-webrtc-sources")
 options.add_argument("--disable-features=VizDisplayCompositor")
 options.add_argument("--headless=new")
 options.add_argument(f"--user-agent={random.choice(USER_AGENTS)}")
-options.binary_location = "/usr/bin/google-chrome-stable"
 
-self.driver = uc.Chrome(options=options, version_main=None)  # <- ini tetap di bawahnya
+self.driver = uc.Chrome(options=options, version_main=None)
 logger.info("[SELENIUM] Chrome driver initialized successfully")
             return True
         except Exception as e:
