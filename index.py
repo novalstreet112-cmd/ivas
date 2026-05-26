@@ -131,16 +131,17 @@ class IVASMSBot:
         try:
             logger.info("[SELENIUM] Initializing undetected Chrome driver...")
             options = uc.ChromeOptions()
-            options.add_argument("--no-sandbox")
-            options.add_argument("--disable-dev-shm-usage")
-            options.add_argument("--disable-gpu")
-            options.add_argument("--disable-web-resources")
-            options.add_argument("--disable-features=VizDisplayCompositor")
-            options.add_argument("--headless=new")
-            options.add_argument(f"--user-agent={random.choice(USER_AGENTS)}")
-            
-            self.driver = uc.Chrome(options=options, version_main=None)
-            logger.info("[SELENIUM] Chrome driver initialized successfully")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--disable-gpu")
+options.add_argument("--disable-webrtc-sources")
+options.add_argument("--disable-features=VizDisplayCompositor")
+options.add_argument("--headless=new")
+options.add_argument(f"--user-agent={random.choice(USER_AGENTS)}")
+options.binary_location = "/usr/bin/google-chrome"  # <- TARUH DI SINI
+
+self.driver = uc.Chrome(options=options, version_main=None)  # <- ini tetap di bawahnya
+logger.info("[SELENIUM] Chrome driver initialized successfully")
             return True
         except Exception as e:
             logger.error(f"[SELENIUM] Failed to initialize Chrome driver: {e}")
